@@ -25,8 +25,16 @@ class TaskStore {
     }
 
     deleteTask(id: string) {
-        const task= this.tasks.filter(t => t.id !== id);
-        saveTasks(task);
+        this.tasks= this.tasks.filter(t => t.id !== id);
+        saveTasks(this.tasks);
+    }
+
+    editTask(id: string, updates: Partial<Task>){
+        const task= this.tasks.find((t)=> t.id ===id);
+        if (task) {
+            Object.assign(task, updates)
+            saveTasks(this.tasks);
+        }
     }
 
 }
